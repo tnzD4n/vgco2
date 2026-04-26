@@ -1,0 +1,551 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Knowledge Base</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/fuse.js@7.0.0/dist/fuse.min.js"></script>
+  <!-- data.js imposta window.KB_DATA — funziona anche con file:// senza CORS -->
+  <script src="data.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:        #07090f;
+      --surface:   #111827;
+      --surface2:  #1e293b;
+      --border:    #1e293b;
+      --accent:    #38bdf8;
+      --accent-dim:#0ea5e9;
+      --text:      #f1f5f9;
+      --muted:     #94a3b8;
+      --mark-bg:   rgba(56, 189, 248, 0.2);
+      --mark-text: #38bdf8;
+      --radius:    10px;
+      --transition: 200ms ease;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--bg);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .header-title {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 1.1rem;
+      color: var(--text);
+    }
+
+    .header-badge {
+      font-family: 'DM Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 3px 10px;
+      border-radius: 20px;
+    }
+
+    /* MAIN */
+    main {
+      padding-top: 80px;
+      padding-bottom: 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding-left: 24px;
+      padding-right: 24px;
+    }
+
+    /* SEARCH */
+    .search-section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin: 24px 0 28px;
+    }
+
+    .search-wrapper {
+      width: 100%;
+      max-width: 700px;
+    }
+
+    #searchInput {
+      width: 100%;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 1.1rem;
+      padding: 14px 20px;
+      outline: none;
+      transition: box-shadow var(--transition), border-color var(--transition);
+    }
+
+    #searchInput::placeholder { color: var(--muted); }
+
+    #searchInput:focus {
+      box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.2);
+      border-color: var(--accent);
+    }
+
+    #resultCount {
+      margin-top: 10px;
+      font-size: 0.85rem;
+      color: var(--muted);
+      align-self: flex-start;
+      padding-left: calc((100% - 700px) / 2);
+    }
+
+    /* GRID */
+    #resultsGrid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 700px) {
+      #resultsGrid { grid-template-columns: 1fr; }
+      #resultCount { padding-left: 0; }
+      #searchInput { font-size: 1rem; }
+    }
+
+    /* CARD */
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      position: relative;
+      transition: transform var(--transition), border-color var(--transition);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-dim);
+    }
+
+    .card-question {
+      font-family: 'DM Mono', monospace;
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: var(--text);
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+
+    .card-answer {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .toggle-link {
+      background: none;
+      border: none;
+      color: var(--accent);
+      font-size: 0.85rem;
+      cursor: pointer;
+      padding: 0;
+      margin-top: 6px;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .toggle-link:hover { text-decoration: underline; }
+
+    .card-page {
+      position: absolute;
+      bottom: 12px;
+      right: 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    mark {
+      background: var(--mark-bg);
+      color: var(--mark-text);
+      border-radius: 2px;
+    }
+
+    /* PAGINATION */
+    #pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 32px;
+    }
+
+    .page-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      padding: 8px 18px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: border-color var(--transition), color var(--transition);
+    }
+
+    .page-btn:hover:not(:disabled) {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    .page-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+    }
+
+    #pageLabel {
+      font-size: 0.85rem;
+      color: var(--muted);
+      font-family: 'DM Mono', monospace;
+    }
+
+    /* STATES */
+    #stateContainer {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      text-align: center;
+      gap: 12px;
+    }
+
+    .state-icon { font-size: 2.5rem; }
+
+    .state-title {
+      font-size: 1.1rem;
+      color: var(--text);
+      font-weight: 500;
+    }
+
+    .state-sub {
+      font-size: 0.9rem;
+      color: var(--muted);
+      max-width: 400px;
+    }
+
+    .state-btn {
+      margin-top: 8px;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      padding: 8px 20px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      transition: border-color var(--transition);
+    }
+
+    .state-btn:hover { border-color: var(--accent); }
+
+    /* SPINNER */
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <span class="header-title">📖 Knowledge Base</span>
+  <span class="header-badge" id="totalBadge">...</span>
+</header>
+
+<main>
+  <div class="search-section">
+    <div class="search-wrapper">
+      <input type="search" id="searchInput" placeholder="Cerca domande e risposte..." autocomplete="off" />
+    </div>
+    <div id="resultCount"></div>
+  </div>
+
+  <div id="stateContainer">
+    <div class="spinner"></div>
+    <p class="state-title">Caricamento in corso...</p>
+  </div>
+
+  <div id="resultsGrid" style="display:none;"></div>
+  <div id="pagination" style="display:none;">
+    <button class="page-btn" id="prevBtn">← Precedente</button>
+    <span id="pageLabel"></span>
+    <button class="page-btn" id="nextBtn">Successiva →</button>
+  </div>
+</main>
+
+<script>
+  // ── State ──────────────────────────────────────────────
+  let allData = [];
+  let fuseIndex = null;
+  let currentPage = 1;
+  let currentQuery = '';
+  let currentResults = [];
+  const PAGE_SIZE = 50;
+  let debounceTimer = null;
+
+  // ── Init ───────────────────────────────────────────────
+  async function init() {
+    try {
+      // Prova fetch (funziona su http/https — GitHub Pages)
+      const res = await fetch('data.json');
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      allData = await res.json();
+    } catch (e) {
+      // Fallback per file:// locale: usa window.KB_DATA impostato da data.js
+      if (window.KB_DATA && window.KB_DATA.length > 0) {
+        allData = window.KB_DATA;
+      } else {
+        showError();
+        return;
+      }
+    }
+    fuseIndex = buildFuse(allData);
+    document.getElementById('totalBadge').textContent = allData.length + ' voci';
+    showAll();
+  }
+
+  function buildFuse(data) {
+    return new Fuse(data, {
+      threshold: 0.35,
+      includeMatches: true,
+      keys: [
+        { name: 'question', weight: 2 },
+        { name: 'answer',   weight: 1 }
+      ]
+    });
+  }
+
+  // ── Search ─────────────────────────────────────────────
+  document.getElementById('searchInput').addEventListener('input', function() {
+    clearTimeout(debounceTimer);
+    const q = this.value.trim();
+    debounceTimer = setTimeout(() => onSearch(q), 150);
+  });
+
+  function onSearch(query) {
+    currentQuery = query;
+    currentPage = 1;
+    if (!query) {
+      showAll();
+    } else {
+      const raw = fuseIndex.search(query);
+      currentResults = raw;
+      updateResultCount(raw.length, query);
+      renderResults(raw.slice(0, PAGE_SIZE), true);
+      document.getElementById('pagination').style.display = 'none';
+    }
+  }
+
+  function showAll() {
+    currentResults = allData.map(item => ({ item }));
+    updateResultCount(allData.length, '');
+    renderPage();
+  }
+
+  function updateResultCount(n, query) {
+    const el = document.getElementById('resultCount');
+    if (query) {
+      el.textContent = n + ' risultati per "' + query + '"';
+    } else {
+      el.textContent = 'Tutti i risultati (' + n + ')';
+    }
+  }
+
+  // ── Render ─────────────────────────────────────────────
+  function renderPage() {
+    const total = allData.length;
+    const totalPages = Math.ceil(total / PAGE_SIZE);
+    const start = (currentPage - 1) * PAGE_SIZE;
+    const slice = allData.slice(start, start + PAGE_SIZE).map(item => ({ item }));
+
+    renderResults(slice, false);
+
+    const pag = document.getElementById('pagination');
+    if (totalPages <= 1) {
+      pag.style.display = 'none';
+    } else {
+      pag.style.display = 'flex';
+      document.getElementById('pageLabel').textContent = 'Pagina ' + currentPage + ' di ' + totalPages;
+      document.getElementById('prevBtn').disabled = currentPage <= 1;
+      document.getElementById('nextBtn').disabled = currentPage >= totalPages;
+    }
+  }
+
+  function renderResults(items, isSearch) {
+    const state = document.getElementById('stateContainer');
+    const grid = document.getElementById('resultsGrid');
+
+    if (items.length === 0) {
+      grid.style.display = 'none';
+      document.getElementById('pagination').style.display = 'none';
+      showEmpty(currentQuery);
+      return;
+    }
+
+    state.style.display = 'none';
+    grid.style.display = 'grid';
+
+    grid.innerHTML = items.map(r => renderCard(r.item, r.matches)).join('');
+
+    grid.querySelectorAll('.toggle-link').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const answerEl = this.previousElementSibling;
+        const id = this.dataset.id;
+        const entry = allData.find(e => String(e.id) === id);
+        const fullText = isSearch
+          ? highlight(entry.answer, (items.find(r => r.item.id == id) || {}).matches, 'answer')
+          : sanitize(entry.answer);
+
+        if (this.dataset.expanded === '1') {
+          answerEl.innerHTML = truncated(fullText);
+          this.textContent = '▼ Leggi tutto';
+          this.dataset.expanded = '0';
+        } else {
+          answerEl.innerHTML = fullText;
+          this.textContent = '▲ Riduci';
+          this.dataset.expanded = '1';
+        }
+      });
+    });
+  }
+
+  function truncated(html) {
+    const tmp = document.createElement('div');
+    tmp.innerHTML = html;
+    const plain = tmp.textContent;
+    if (plain.length <= 250) return html;
+    return sanitize(plain.substring(0, 250)) + '…';
+  }
+
+  function renderCard(entry, matches) {
+    const qHtml = highlight(entry.question, matches, 'question');
+    const aFull = highlight(entry.answer, matches, 'answer');
+    const tmp = document.createElement('div');
+    tmp.innerHTML = aFull;
+    const aPlain = tmp.textContent;
+    const needsTruncate = aPlain.length > 250;
+    const aDisplay = needsTruncate ? sanitize(aPlain.substring(0, 250)) + '…' : aFull;
+    const pageTag = entry.page ? '<span class="card-page">p. ' + sanitize(String(entry.page)) + '</span>' : '';
+    const toggleBtn = needsTruncate
+      ? '<button class="toggle-link" data-id="' + sanitize(String(entry.id)) + '" data-expanded="0">▼ Leggi tutto</button>'
+      : '';
+
+    return '<div class="card">' +
+      '<div class="card-question">' + qHtml + '</div>' +
+      '<div class="card-answer">' + aDisplay + '</div>' +
+      toggleBtn +
+      pageTag +
+      '</div>';
+  }
+
+  function highlight(text, matches, key) {
+    if (!matches) return sanitize(text || '');
+    const match = matches.find(m => m.key === key);
+    if (!match || !match.indices || match.indices.length === 0) return sanitize(text || '');
+
+    const safe = text || '';
+    let result = '';
+    let cursor = 0;
+    const indices = match.indices.slice().sort((a, b) => a[0] - b[0]);
+
+    for (const [start, end] of indices) {
+      result += sanitize(safe.substring(cursor, start));
+      result += '<mark>' + sanitize(safe.substring(start, end + 1)) + '</mark>';
+      cursor = end + 1;
+    }
+    result += sanitize(safe.substring(cursor));
+    return result;
+  }
+
+  function sanitize(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  // ── Pagination ─────────────────────────────────────────
+  document.getElementById('prevBtn').addEventListener('click', () => goToPage(currentPage - 1));
+  document.getElementById('nextBtn').addEventListener('click', () => goToPage(currentPage + 1));
+
+  function goToPage(n) {
+    const totalPages = Math.ceil(allData.length / PAGE_SIZE);
+    if (n < 1 || n > totalPages) return;
+    currentPage = n;
+    renderPage();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  // Keyboard navigation (browse mode only)
+  document.addEventListener('keydown', function(e) {
+    if (currentQuery) return;
+    if (document.activeElement === document.getElementById('searchInput')) return;
+    if (e.key === 'ArrowLeft') goToPage(currentPage - 1);
+    if (e.key === 'ArrowRight') goToPage(currentPage + 1);
+  });
+
+  // ── States ─────────────────────────────────────────────
+  function showEmpty(query) {
+    const state = document.getElementById('stateContainer');
+    state.style.display = 'flex';
+    state.innerHTML =
+      '<div class="state-icon">🔍</div>' +
+      '<p class="state-title">Nessun risultato per "' + sanitize(query) + '"</p>' +
+      '<p class="state-sub">Prova con parole diverse o sfoglia tutti i risultati.</p>' +
+      '<button class="state-btn" id="clearBtn">Mostra tutti →</button>';
+    document.getElementById('clearBtn').addEventListener('click', function() {
+      document.getElementById('searchInput').value = '';
+      currentQuery = '';
+      currentPage = 1;
+      showAll();
+    });
+  }
+
+  function showError() {
+    const state = document.getElementById('stateContainer');
+    state.style.display = 'flex';
+    state.innerHTML =
+      '<div class="state-icon">⚠️</div>' +
+      '<p class="state-title">Impossibile caricare il database.</p>' +
+      '<p class="state-sub">Assicurati che data.json sia presente nella stessa cartella.</p>' +
+      '<button class="state-btn" onclick="location.reload()">Riprova</button>';
+  }
+
+  // ── Boot ───────────────────────────────────────────────
+  init();
+</script>
+</body>
+</html>

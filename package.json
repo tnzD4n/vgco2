@@ -1,0 +1,11 @@
+{
+  "name": "pdf-knowledge-base",
+  "version": "1.0.0",
+  "description": "Searchable knowledge base from PDF, deployable on GitHub Pages",
+  "scripts": {
+    "parse": "node parse.js"
+  },
+  "dependencies": {
+    "pdf-parse": "^1.1.1"
+  }
+}

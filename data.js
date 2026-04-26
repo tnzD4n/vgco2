@@ -1,0 +1,374 @@
+window.KB_DATA = [
+  {
+    "id": 1,
+    "question": "Quale affermazione meglio descrive la formazione del legame π in una molecola di etanolo?",
+    "answer": "Nessuna delle altre risposte è corretta",
+    "page": 3
+  },
+  {
+    "id": 2,
+    "question": "La reazione di idroborazione-ossidazione può essere caratterizzata come la_________ ad un alchene",
+    "answer": "aggiunta di acqua anti-Markovnikov con regiochimica syn",
+    "page": 3
+  },
+  {
+    "id": 3,
+    "question": "Quale tipo di ibridazione presenta l’atomo di carbonio nella formaldeide?",
+    "answer": "sp2",
+    "page": 3
+  },
+  {
+    "id": 4,
+    "question": "Quale dei seguenti fattori influenza se una reazione procederà con un meccanismo SN1, SN2, E1 o E2?",
+    "answer": "Tutte le precedenti",
+    "page": 3
+  },
+  {
+    "id": 5,
+    "question": "Quando il cloroformio viene riscaldato con NaOH acquoso, dà",
+    "answer": "Formato di sodio",
+    "page": 3
+  },
+  {
+    "id": 6,
+    "question": "Quale dei seguenti reagenti non può essere utilizzato per preparare un cloruro alchilico da un alcol?",
+    "answer": "NaCl",
+    "page": 3
+  },
+  {
+    "id": 7,
+    "question": "Il freon-12, CCl2F2, è utilizzato come",
+    "answer": "Refrigerante",
+    "page": 3
+  },
+  {
+    "id": 8,
+    "question": "Quale delle seguenti non è una possibile reazione di un carbocatione?",
+    "answer": "aggiunta di un protone per formare un alcano",
+    "page": 4
+  },
+  {
+    "id": 9,
+    "question": "Un composto, C4H6, reagisce con il bromo e forma un precipitato bianco",
+    "answer": "1-Butino",
+    "page": 4
+  },
+  {
+    "id": 10,
+    "question": "Quando l'acetilene viene fatto passare attraverso un tubo di ferro caldo a 400°C, dà",
+    "answer": "Benzene",
+    "page": 4
+  },
+  {
+    "id": 11,
+    "question": "L'ozonolisi del 2-butino da come prodotto",
+    "answer": "Acido acetico",
+    "page": 4
+  },
+  {
+    "id": 12,
+    "question": "Quale dei seguenti composti reagisce con il cloruro rameoso ammoniacale per dare un precipitato?",
+    "answer": "1-butino",
+    "page": 4
+  },
+  {
+    "id": 13,
+    "question": "Qual è la geometria dell’atomo di ossigeno nel butanolo?",
+    "answer": "Tetraedrica",
+    "page": 4
+  },
+  {
+    "id": 14,
+    "question": "Gli acidi grassi trans derivano",
+    "answer": "Dall'idrogenazione degli oli vegetali",
+    "page": 5
+  },
+  {
+    "id": 15,
+    "question": "Quale delle seguenti situazioni darebbe un risultato positivo al test di Tollen?",
+    "answer": "α-D-glucopiranosio",
+    "page": 5
+  },
+  {
+    "id": 16,
+    "question": "Quale delle seguenti reazioni è adatta per la preparazione degli α-amminoacidi?",
+    "answer": "Sintesi di Strecker",
+    "page": 5
+  },
+  {
+    "id": 17,
+    "question": "Quale dei seguenti è il primo passaggio nella determinazione della struttura primaria delle proteine?",
+    "answer": "Riduzione dei ponti disolfuro nelle proteine",
+    "page": 5
+  },
+  {
+    "id": 18,
+    "question": "Quale delle seguenti affermazioni sulle ammine primarie è falsa?",
+    "answer": "Non formano sali con gli acidi",
+    "page": 5
+  },
+  {
+    "id": 19,
+    "question": "Quale delle seguenti affermazioni descrive meglio la struttura delle cere?",
+    "answer": "Esteri a catena lunga",
+    "page": 5
+  },
+  {
+    "id": 20,
+    "question": "Tra i seguenti composti: acqua, 1-butino, 2-butino ed etano, quali sono acidi più forti dell'ammoniaca?",
+    "answer": "Acqua e 1-butino",
+    "page": 5
+  },
+  {
+    "id": 21,
+    "question": "Gli acidi grassi essenziali hanno",
+    "answer": "Più di un doppio legame",
+    "page": 6
+  },
+  {
+    "id": 22,
+    "question": "Quale delle seguenti affermazioni sugli acidi grassi non è vera?",
+    "answer": "I doppi legami negli acidi grassi insaturi sono sempre coniugati",
+    "page": 6
+  },
+  {
+    "id": 23,
+    "question": "L'idrolisi alcalina degli oli (o grassi) è chiamata:",
+    "answer": "Saponificazione",
+    "page": 6
+  },
+  {
+    "id": 24,
+    "question": "Gli oli liquidi possono essere convertiti in grassi solidi mediante",
+    "answer": "Idrogenazione",
+    "page": 6
+  },
+  {
+    "id": 25,
+    "question": "Nell'aggiunta di acido bromidrico agli alchini, quale delle seguenti specie si ritiene sia un intermedio?",
+    "answer": "Catione vinilico",
+    "page": 6
+  },
+  {
+    "id": 26,
+    "question": "Quale dei seguenti composti trattati con NaHCO3 libererà CO2?",
+    "answer": "Acido Propionico",
+    "page": 6
+  },
+  {
+    "id": 27,
+    "question": "Quale dei seguenti composti reagisce con il reagente di Tollens per dare argento metallico?",
+    "answer": "Acido Formico",
+    "page": 6
+  },
+  {
+    "id": 28,
+    "question": "Una reazione in cui un singolo reagente riarrangia i suoi atomi ed i relativi legami viene definita",
+    "answer": "Di riarrangiamento",
+    "page": 7
+  },
+  {
+    "id": 29,
+    "question": "Prendendo come riferimento la reazione di alogenazione del Buta-1,3-diene",
+    "answer": "Si avrà una miscela di prodotti 1,2 e 1,4 sostituiti",
+    "page": 8
+  },
+  {
+    "id": 30,
+    "question": "Le reazioni radicaliche in ambito biologico",
+    "answer": "Intervengono nella sintesi delle prostaglandine",
+    "page": 8
+  },
+  {
+    "id": 31,
+    "question": "La reazione di addizione elettrofila aromatica può avvenire con quale dei seguenti reagenti",
+    "answer": "Nessuna delle precedenti è corretta",
+    "page": 9
+  },
+  {
+    "id": 32,
+    "question": "La nitrazione di un anello benzenico",
+    "answer": "Nessuna delle precedenti è corretta",
+    "page": 10
+  },
+  {
+    "id": 33,
+    "question": "La reazione tra il cloroetano e un gruppo OH darà come prodotto",
+    "answer": "Un alchene",
+    "page": 11
+  },
+  {
+    "id": 34,
+    "question": "I carbanioni, intermedi di reazione molto importanti in biologia, si formano in una reazione di tipo",
+    "answer": "E1cB",
+    "page": 11
+  },
+  {
+    "id": 35,
+    "question": "NAD e NADPH, coenzimi molto importanti a livello biologico, eseguono il seguente tipo di reazione",
+    "answer": "Riduzione di aldeidi e chetoni",
+    "page": 12
+  },
+  {
+    "id": 36,
+    "question": "Qual è la funzione degli ioni solfonio (R₃S⁺) nelle reazioni organiche?",
+    "answer": "Agenti alchilanti",
+    "page": 13
+  },
+  {
+    "id": 37,
+    "question": "In una reazione acido-catalizzata di idratazione, qual è il ruolo dell'acido?",
+    "answer": "Protonando il carbonile, ne aumenta l’elettrofilia",
+    "page": 14
+  },
+  {
+    "id": 38,
+    "question": "L'acido 3-metilesanoico può essere ottenuto tramite:",
+    "answer": "Ossidazione del 3-metilesan-1-olo",
+    "page": 15
+  },
+  {
+    "id": 39,
+    "question": "Il pent-3-ene nitrile",
+    "answer": "Può subire una riduzione con litio alluminio idruro in etere per dare un'ammina",
+    "page": 16
+  },
+  {
+    "id": 40,
+    "question": "In una reazione di sostituzione nucleofila che ha come reagente il propanone, il gruppo uscente sarà",
+    "answer": "Nessuna delle precedenti è corretta",
+    "page": 16
+  },
+  {
+    "id": 41,
+    "question": "Se un alcol contenesse un gruppo funzionale sensibile agli acidi, quale dei seguenti derivati degli acidi carbossilici sarebbe generalmente meno appropriato",
+    "answer": "Cloruro acilico",
+    "page": 16
+  },
+  {
+    "id": 42,
+    "question": "L'anidride acetica, fondamentale per la sintesi dell'aspirina, è una molecola:",
+    "answer": "Derivata da acidi carbossilici",
+    "page": 16
+  },
+  {
+    "id": 43,
+    "question": "L'idrolisi dell'isopentilacetato porta alla formazione",
+    "answer": "Di un acido carbossilico e un alcol",
+    "page": 17
+  },
+  {
+    "id": 44,
+    "question": "Una proteina, nella sua catena polipetidica, può presentare come gruppo funzionale",
+    "answer": "Quello ammidico",
+    "page": 18
+  },
+  {
+    "id": 45,
+    "question": "La reazione tra l'acido pentanoico e l'alcol isopropilico",
+    "answer": "Utilizza come catalizzatore un acido forte",
+    "page": 18
+  },
+  {
+    "id": 46,
+    "question": "Le aldolasi, enzimi biologici, formano un intermedio classico:",
+    "answer": "Un'enammina",
+    "page": 19
+  },
+  {
+    "id": 47,
+    "question": "Durante una reazione di condensazione aldolica, quale specie agisce da nucleofilo?",
+    "answer": "Uno ione enolato",
+    "page": 19
+  },
+  {
+    "id": 48,
+    "question": "La sintesi malonica è utilizzata per:",
+    "answer": "Sintetizzare acidi carbossilici partendo da alogenuri alchilici ed allungando la catena di due atomi di C",
+    "page": 19
+  },
+  {
+    "id": 49,
+    "question": "La reazione di Stork ha come prodotti:",
+    "answer": "Enammine",
+    "page": 19
+  },
+  {
+    "id": 50,
+    "question": "La condensazione di Claisen è una reazione che avviene tra",
+    "answer": "Esteri aventi almeno un idrogeno in alfa",
+    "page": 19
+  },
+  {
+    "id": 51,
+    "question": "Le ammine, composti organici contenenti azoto:",
+    "answer": "Esistono, a pH fisiologico, in forma protonata",
+    "page": 20
+  },
+  {
+    "id": 52,
+    "question": "L'amfetamina può essere ottenuta, in presenza di un agente riducente, da ammoniaca e",
+    "answer": "Il corrispondente chetone",
+    "page": 21
+  },
+  {
+    "id": 53,
+    "question": "L'anfetamina, un'ammina con attività sul sistema nervoso centrale, si può sintetizzare",
+    "answer": "Tramite amminazione riduttiva di un chetone",
+    "page": 21
+  },
+  {
+    "id": 54,
+    "question": "Chinolina ed isochinolina sono:",
+    "answer": "Sistemi eterociclici ad anelli condensati contenenti azoto",
+    "page": 21
+  },
+  {
+    "id": 55,
+    "question": "L'azoto presente in un legame ammidico",
+    "answer": "Non è basico",
+    "page": 22
+  },
+  {
+    "id": 56,
+    "question": "Il ponte disolfuro, un legame covalente molto importante in biologia, si può formare",
+    "answer": "Tra due atomi di zolfo presenti su due residui cisteinici",
+    "page": 22
+  },
+  {
+    "id": 57,
+    "question": "Nella sintesi di peptidi, un passaggio fondamentale è:",
+    "answer": "L'utilizzo del Ter-Butilossicarbonile come protettore del gruppo amminico",
+    "page": 22
+  },
+  {
+    "id": 58,
+    "question": "Nella reazione catabolica più classica, gli amminoacidi subiscono",
+    "answer": "Una deamminazione",
+    "page": 23
+  },
+  {
+    "id": 59,
+    "question": "Nel contesto della ciclizzazione del glucosio per formare anelli piranosici e furanosici, quale affermazione descrive correttamente la formazione delle",
+    "answer": "Nessuna delle altre risposte è corretta",
+    "page": 23
+  },
+  {
+    "id": 60,
+    "question": "Quale classi di lipidi è caratterizzata dalla presenza di strutture cicliche non contenenti legami esterei?",
+    "answer": "Steroidi",
+    "page": 24
+  },
+  {
+    "id": 61,
+    "question": "I glicosidi sono",
+    "answer": "Acetali ottenuti da emiacetali di un monosaccaride trattati con alcol e catalazzitori acidi",
+    "page": 24
+  },
+  {
+    "id": 62,
+    "question": "L'acetato di isoamile è una molecola che può andare incontro ad una reazione di idrolisi. In ambito biologico si tratta di",
+    "answer": "Una reazione di digestione dei grassi",
+    "page": 25
+  }
+];
